@@ -18,26 +18,28 @@ import frc.robot.command.teleop.*;
  */
 public class OI {
 	public static final XboxController driveController = new XboxController(0);
-	public static final JoystickButton driveA = new JoystickButton(driveController, 1);
-	public static final JoystickButton driveB = new JoystickButton(driveController, 2);
-	public static final JoystickButton driveX = new JoystickButton(driveController, 3);
-	public static final JoystickButton driveY = new JoystickButton(driveController, 4);
+	public static final JoystickButton driveButtonA = new JoystickButton(driveController, 1);
+	public static final JoystickButton driveButtonX = new JoystickButton(driveController, 3);
 	public static final JoystickButton driveLTrigger = new JoystickButton(driveController, 5);
 	public static final JoystickButton driveRTrigger = new JoystickButton(driveController, 6);
-	public static final JoystickButton driveL3 = new JoystickButton(driveController, 9);
+	public static final JoystickButton driveButtonL3 = new JoystickButton(driveController, 9);
+
+	public static final XboxController coDriverController = new XboxController(1);
+	public static final JoystickButton coDriverButtonY = new JoystickButton(coDriverController, 4);
+	public static final JoystickButton coDriverButtonB = new JoystickButton(coDriverController, 2);
 
 	
 
 
 	public OI(Robot robot) {
 		//Drivetrain
-		driveA.whenPressed(new ToggleFrontDirection(robot.drivetrain));
-		driveX.whenPressed(new ToggleCentricMode(robot.drivetrain));
-		driveL3.whenPressed(new ToggleLimitSpeed(robot.drivetrain));
+		driveButtonA.whenPressed(new ToggleFrontDirection(robot.drivetrain));
+		driveButtonX.whenPressed(new ToggleCentricMode(robot.drivetrain));
+		driveButtonL3.whenPressed(new ToggleLimitSpeed(robot.drivetrain));
 		
 		//Intake
-		driveY.whenPressed(new TeleIntake(robot.intake));
-		driveB.whenPressed(new TeleIntake(robot.intake));
+		coDriverButtonY.whenPressed(new TeleIntake(robot.intake));
+		coDriverButtonB.whenPressed(new TeleLowShooter(robot.lowShooter));
 	}
 
 

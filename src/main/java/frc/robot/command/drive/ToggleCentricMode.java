@@ -27,10 +27,10 @@ public class ToggleCentricMode extends Command {
 
 		if (drivetrain.getCentricMode() == CentricMode.ROBOT) {
 			drivetrain.setCentricMode(CentricMode.FIELD);
-			OI.driveController.setRumble(RumbleType.kRightRumble, 1.0);
+			OI.coDriverController.setRumble(RumbleType.kRightRumble, 1.0);
 		} else if (drivetrain.getCentricMode() == CentricMode.FIELD) {
 			drivetrain.setCentricMode(CentricMode.ROBOT);
-			OI.driveController.setRumble(RumbleType.kLeftRumble, 1.0);
+			OI.coDriverController.setRumble(RumbleType.kLeftRumble, 1.0);
 		}
 	}
 
@@ -45,14 +45,14 @@ public class ToggleCentricMode extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		OI.driveController.setRumble(RumbleType.kLeftRumble, 0.0);
-		OI.driveController.setRumble(RumbleType.kRightRumble, 0.0);
+		OI.coDriverController.setRumble(RumbleType.kLeftRumble, 0.0);
+		OI.coDriverController.setRumble(RumbleType.kRightRumble, 0.0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		OI.driveController.setRumble(RumbleType.kLeftRumble, 0.0);
-		OI.driveController.setRumble(RumbleType.kRightRumble, 0.0);
+		OI.coDriverController.setRumble(RumbleType.kLeftRumble, 0.0);
+		OI.coDriverController.setRumble(RumbleType.kRightRumble, 0.0);
 	}
 }

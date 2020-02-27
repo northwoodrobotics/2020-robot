@@ -8,22 +8,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Intake extends Subsystem {
-	private VictorSP intake;
+public class LowShooter extends Subsystem {
+	private VictorSP lowShooter;
 
-	public Intake() {
-        intake = new VictorSP(RobotMap.intakeMotor);
+	public LowShooter() {
+        lowShooter = new VictorSP(RobotMap.lowShootMotor);
 		
-		intake.setInverted(RobotMap.intakeInverse);
+		lowShooter.setInverted(RobotMap.lowShootInverse);
 
 	}
 
 	public void setSpeed(double speed) {
-		intake.set(speed);
+		lowShooter.set(speed);
 	}
 
 	
 	public void initDefaultCommand() {
-		setDefaultCommand(new TeleIntake(this));
+		setDefaultCommand(new TeleLowShooter(this));
 	}
 }

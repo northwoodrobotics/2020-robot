@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
   public final Drivetrain drivetrain = new Drivetrain();
   public final Intake intake = new Intake();
   public final ColorSensor colorSensor = new ColorSensor();
+  public final LowShooter lowShooter = new LowShooter();
 
 
 

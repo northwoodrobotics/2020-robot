@@ -27,39 +27,43 @@ public class RobotMap {
 	//Color sensor port
 	public static I2C.Port colorSensorPort = I2C.Port.kOnboard;
 
-	// Rightfront
+	//Front right motor
 	public static int Frontright = 1;
 	public static int FrontrightS = 2;
 	public static boolean FrontrightI = false;
 	public static boolean FrontrightSI = false;
 	
-	// Rightback
+	//Back right motor
 	public static int Backright = 3;
 	public static int BackrightS = 4;
 	public static boolean BackrightI = false;
 	public static boolean BackrightSI = false;
 	
-	// Back
+	//Back motor
 	public static int Back = 5;
 	public static int BackS = 6;
 	public static boolean BackI = false;
 	public static boolean BackSI = true;
 
-	// Leftback
-	public static int  Backleft = 7;
+	//Back left motor
+	public static int Backleft = 7;
 	public static int BackleftS = 8;
 	public static boolean  BackleftI = true;
 	public static boolean  BackleftSI = false;
 
-	// Frontleft
+	//Front left motor
 	public static int Frontleft = 9;
 	public static int FrontleftS = 10;
 	public static boolean FrontleftI = true;
 	public static boolean FrontleftSI = false;
 
-	//Intake
+	//Intake motor
 	public static int intakeMotor = 0;
 	public static boolean intakeInverse = false;
+
+	//Low shoot motor
+	public static int lowShootMotor = 1;
+	public static boolean lowShootInverse = false;
 	
 
 
