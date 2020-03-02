@@ -2,7 +2,12 @@ package frc.robot.command.teleop;
 
 import frc.robot.command.button.ToggleLowShooter;
 import frc.robot.subsystems.LowShooter;
+import frc.robot.OI;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+
 
 /**
  *
@@ -10,6 +15,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleLowShooter extends Command {
 
     private LowShooter lowShooter;
+    private double lowShooterSpeed;
+    private Joystick controller = OI.coDriverController;
 
 	public TeleLowShooter(LowShooter lowShooter) {
     	this.lowShooter = lowShooter;
@@ -22,7 +29,8 @@ public class TeleLowShooter extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        lowShooter.setSpeed(ToggleLowShooter.getLowShooterStatus());
+        lowShooterSpeed = OI.deadBand(-controller.getY(Hand.kLeft));
+        lowShooter.setSpeed(lowShooterSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

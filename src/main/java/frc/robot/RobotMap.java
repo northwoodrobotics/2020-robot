@@ -43,7 +43,7 @@ public class RobotMap {
 	public static int Back = 5;
 	public static int BackS = 6;
 	public static boolean BackI = false;
-	public static boolean BackSI = true;
+	public static boolean BackSI = false;
 
 	//Back left motor
 	public static int Backleft = 7;

@@ -29,14 +29,15 @@ import java.util.List;
  */
 public class SwerveMath {
     // Robot dimensions. Units are of no importance. Required
-    private final double side;
+    private final double lengthDef;
+    private final double widthDef;
+    private final double lengthPlus;
+    private final double widthPlus;
 
-    private final double length;
-    private final double width;
 
     // The diagonal of the robot dimensions. Internal
-    private final double diagonal;
-
+    private final double diagonalDef;
+    private final double diagonalPlus;
 
     // The scale factor to control robot maximum speed. Optional.
     private final double SCALE_SPEED = 1.00;
@@ -49,16 +50,25 @@ public class SwerveMath {
 	}
     /**
      * Constructor
-     * @param side the robot side length in inches
-     * 
-    */
+     * @param widthDef the robot widthDef (units do not matter)
+     * @param lengthDef the robot lengthDef (units do not matter)
+     * @param widthPlus the robot widthPlus (units do not matter)
+     * @param lengthPlus the robot lengthPlus (units do not matter)
+     */
+    
+    public SwerveMath(double widthDef, double lengthDef, double widthPlus, double lengthPlus) {
+        assert (widthDef > 0) : "Width has to be larger than 0";
+        assert (lengthDef > 0) : "Length has to be larger than 0";
+        assert (widthPlus > 0) : "Width has to be larger than 0";
+        assert (lengthPlus > 0) : "Length has to be larger than 0";
 
-    public SwerveMath(double side) {
-        assert (side > 0) : "Side has to be larger than 0";
-        this.side = side;
-        this.length = (2 * this.side);
-        this.width = (Math.sqrt(3) * this.side);
-        diagonal = (Math.sqrt(Math.pow(this.length,2) + Math.pow(this.width,2)));
+        this.widthDef = widthDef;
+        this.lengthDef = lengthDef;
+        this.widthPlus = widthPlus;
+        this.lengthPlus = lengthPlus;
+
+        diagonalDef = Math.sqrt(Math.pow(this.lengthDef, 2) + Math.pow(this.widthDef, 2));
+        diagonalPlus = Math.sqrt(Math.pow(this.lengthPlus, 2) + Math.pow(this.widthPlus, 2));
     }
 
 
@@ -102,25 +112,32 @@ public class SwerveMath {
         //These 8 variables are used in the swerve drive calculations.
 
         //Default
-        double a = str - rcw*(length / diagonal);
-        double b = str + rcw*(length / diagonal);
-        double c = fwd - rcw*(width / diagonal);
-        double d = fwd + rcw*(width / diagonal);
+        double a_Def = str - rcw*(lengthDef / diagonalDef);
+        double b_Def = str + rcw*(lengthDef / diagonalDef);
+        double c_Def = fwd - rcw*(widthDef / diagonalDef);
+        double d_Def = fwd + rcw*(widthDef / diagonalDef);
+        
+        //Plus
+
+        double a_Plus = str - rcw*(lengthPlus / diagonalPlus);
+        double c_Plus = fwd - rcw*(widthPlus / diagonalPlus);
+        double d_Plus = fwd + rcw*(widthPlus / diagonalPlus);
+
 
         //These are the equations for the wheel speed, for motors 1-5.
         
-        double wsLF =  Math.sqrt( Math.pow( ((b*0.75) + (a*0.25)),2) + Math.pow(((Math.sqrt(3)/2) *d)+(1-(Math.sqrt(3)/2)*c),2));
-        double wsRF =  Math.sqrt( Math.pow( ((b*0.75) + (a*0.25)),2) + Math.pow(((Math.sqrt(3)/2) *c)+(1-(Math.sqrt(3)/2)*d),2));
-        double wsRB =  Math.sqrt( Math.pow( ((a*0.75) + (b*0.25)),2) + Math.pow(((Math.sqrt(3)/2) *c)+(1-(Math.sqrt(3)/2)*d),2));
-        double wsLB =  Math.sqrt( Math.pow( ((a*0.75) + (b*0.25)),2) + Math.pow(((Math.sqrt(3)/2) *d)+(1-(Math.sqrt(3)/2)*c),2));
-        double wsB =  Math.sqrt( Math.pow(a,2) + Math.pow(d/2 + c/2,2));
+        double wsLF =  Math.sqrt(Math.pow(((0.75 * b_Def)+(0.25 * a_Def)),2)+Math.pow((((Math.sqrt(3)/2) *d_Def) + ((1-(Math.sqrt(3)/2))*c_Def)),2));
+        double wsRF =  Math.sqrt(Math.pow(((0.75 * b_Def)+(0.25 * a_Def)),2)+Math.pow((((Math.sqrt(3)/2) *c_Def) + ((1-(Math.sqrt(3)/2))*d_Def)),2));
+        double wsRB =  Math.sqrt(Math.pow(((0.75 * a_Def)+(0.25 * b_Def)),2)+Math.pow((((Math.sqrt(3)/2) *c_Def) + ((1-(Math.sqrt(3)/2))*d_Def)),2));
+        double wsLB =  Math.sqrt(Math.pow(((0.75 * a_Def)+(0.25 * b_Def)),2)+Math.pow((((Math.sqrt(3)/2) *d_Def) + ((1-(Math.sqrt(3)/2))*c_Def)),2));
+        double wsB =  Math.sqrt(Math.pow(a_Plus,2)+Math.pow((d_Plus/2 + c_Plus/2),2));
 
         //These are the equations for the wheel angle, for motors 1-5.
-        double waLF =  Math.atan2((((b*0.75) + (a*0.25))),(((Math.sqrt(3)/2) *d)+(1-(Math.sqrt(3)/2)*c)))*180/Math.PI;
-        double waRF =  Math.atan2((((b*0.75) + (a*0.25))),(((Math.sqrt(3)/2) *c)+(1-(Math.sqrt(3)/2)*d)))*180/Math.PI;
-        double waRB =  Math.atan2((((a*0.75) + (b*0.25))),(((Math.sqrt(3)/2) *c)+(1-(Math.sqrt(3)/2)*d)))*180/Math.PI;
-        double waLB =  Math.atan2((((a*0.75) + (b*0.25))),(((Math.sqrt(3)/2) *d)+(1-(Math.sqrt(3)/2)*c)))*180/Math.PI;
-        double waB =  Math.atan2((a),((d/2) + (c/2)))*180/Math.PI;
+        double waLF =  Math.atan2(((0.75 * b_Def)+(0.25 * a_Def)),(((Math.sqrt(3)/2) *d_Def) + ((1-(Math.sqrt(3)/2))*c_Def)))*180/Math.PI;
+        double waRF =  Math.atan2(((0.75 * b_Def)+(0.25 * a_Def)),(((Math.sqrt(3)/2) *c_Def) + ((1-(Math.sqrt(3)/2))*d_Def)))*180/Math.PI;
+        double waRB =  Math.atan2(((0.75 * a_Def)+(0.25 * b_Def)),(((Math.sqrt(3)/2) *c_Def) + ((1-(Math.sqrt(3)/2))*d_Def)))*180/Math.PI;
+        double waLB =  Math.atan2(((0.75 * a_Def)+(0.25 * b_Def)),(((Math.sqrt(3)/2) *d_Def) + ((1-(Math.sqrt(3)/2))*c_Def)))*180/Math.PI;
+        double waB =  Math.atan2((a_Def),(d_Plus/2 + c_Plus/2))*180/Math.PI;
 
         //This is to normalize the speed (if the largest speed is greater than 1, change accordingly).
         double max = wsLF;
@@ -157,7 +174,7 @@ public class SwerveMath {
         SwerveDirective directiveLB = new SwerveDirective(waLB, wsLB);
         SwerveDirective directiveB = new SwerveDirective(waB, wsB);
 
-        return Arrays.asList(directiveLF, directiveRF, directiveRB, directiveLB, directiveB);
+        return Arrays.asList(directiveLF, directiveRF, directiveRB, directiveB, directiveLB);
     }
 
     private boolean isFieldCentric() {

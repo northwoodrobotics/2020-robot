@@ -27,7 +27,10 @@ public class SwerveDrive {
         SwerveEnclosure swerveEnclosureB,
         SwerveEnclosure swerveEnclosureLB,
 
-        double side) {
+        double widthDef, 
+        double lengthDef, 
+        double widthPlus, 
+        double lengthPlus) {
 
             this.swerveEnclosureLF = swerveEnclosureLF;
             this.swerveEnclosureRF = swerveEnclosureRF;
@@ -36,7 +39,7 @@ public class SwerveDrive {
             this.swerveEnclosureLB = swerveEnclosureLB;
 
             // instantiate the swerve library with a gyro provider using pigeon1
-            swerveMath = new SwerveMath(side);
+            swerveMath = new SwerveMath(widthDef, lengthDef, widthPlus, lengthPlus);
 
     }
 

@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.command.drive.*;
@@ -24,7 +25,7 @@ public class OI {
 	public static final JoystickButton driveRTrigger = new JoystickButton(driveController, 6);
 	public static final JoystickButton driveButtonL3 = new JoystickButton(driveController, 9);
 
-	public static final XboxController coDriverController = new XboxController(1);
+	public static final Joystick coDriverController = new Joystick(1);
 	public static final JoystickButton coDriverButtonY = new JoystickButton(coDriverController, 4);
 	public static final JoystickButton coDriverButtonB = new JoystickButton(coDriverController, 2);
 
@@ -32,14 +33,18 @@ public class OI {
 
 
 	public OI(Robot robot) {
-		//Drivetrain
+		//Drive Controller
 		driveButtonA.whenPressed(new ToggleFrontDirection(robot.drivetrain));
 		driveButtonX.whenPressed(new ToggleCentricMode(robot.drivetrain));
 		driveButtonL3.whenPressed(new ToggleLimitSpeed(robot.drivetrain));
 		
-		//Intake
-		coDriverButtonY.whenPressed(new TeleIntake(robot.intake));
-		coDriverButtonB.whenPressed(new TeleLowShooter(robot.lowShooter));
+		//Co Driver Controller
+		// coDriverButtonY.whenPressed(new TeleIntake(robot.intake));
+		// coDriverButtonB.whenPressed(new TeleLowShooter(robot.lowShooter));
+
+		//TEMPORARY BUTTONS ADDED TO DRIVE CONTROLLER FOR TESTING PURPOSES 
+		// driveLTrigger.whenPressed(new TeleIntake(robot.intake));
+		// driveRTrigger.whenPressed(new TeleLowShooter(robot.lowShooter));
 	}
 
 
@@ -57,7 +62,7 @@ public class OI {
 	 */
 	public static double deadBand(double input) {
 		double output;
-		double radius = 0.2;
+		double radius = 0.15;
 		assert (-1 <= input && input <= 1) : "input is less than -1 or greater than 1";
 		assert (radius < 1) : "deadband radius is greater than or equal to the maximum output";
 
