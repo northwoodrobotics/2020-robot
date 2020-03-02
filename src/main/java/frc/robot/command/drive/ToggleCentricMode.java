@@ -27,10 +27,10 @@ public class ToggleCentricMode extends Command {
 
 		if (drivetrain.getCentricMode() == CentricMode.ROBOT) {
 			drivetrain.setCentricMode(CentricMode.FIELD);
-			OI.coDriverController.setRumble(RumbleType.kRightRumble, 1.0);
+			OI.driveController.setRumble(RumbleType.kRightRumble, 1.0);
 		} else if (drivetrain.getCentricMode() == CentricMode.FIELD) {
 			drivetrain.setCentricMode(CentricMode.ROBOT);
-			OI.coDriverController.setRumble(RumbleType.kLeftRumble, 1.0);
+			OI.driveController.setRumble(RumbleType.kLeftRumble, 1.0);
 		}
 	}
 
