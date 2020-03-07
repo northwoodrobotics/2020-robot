@@ -58,11 +58,11 @@ public class RobotMap {
 	public static boolean FrontleftSI = false;
 
 	//Intake motor
-	public static int intakeMotor = 0;
+	public static int intakeMotor = 2;
 	public static boolean intakeInverse = false;
 
 	//Low shoot motor
-	public static int lowShootMotor = 1;
+	public static int lowShootMotor = 3;
 	public static boolean lowShootInverse = false;
 	
 

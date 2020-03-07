@@ -7,11 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.command.drive.*;
-import frc.robot.command.teleop.*;
+//import frc.robot.command.teleop.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,7 +25,11 @@ public class OI {
 	public static final JoystickButton driveRTrigger = new JoystickButton(driveController, 6);
 	public static final JoystickButton driveButtonL3 = new JoystickButton(driveController, 9);
 
-	public static final Joystick coDriverController = new Joystick(1);
+	/**
+	 * if using logitech f310 controller
+	 * public static final Joystick coDriverController = new Joystick(1);
+	 */
+	public static final XboxController coDriverController = new XboxController(1);
 	public static final JoystickButton coDriverButtonY = new JoystickButton(coDriverController, 4);
 	public static final JoystickButton coDriverButtonB = new JoystickButton(coDriverController, 2);
 
@@ -38,13 +42,15 @@ public class OI {
 		driveButtonX.whenPressed(new ToggleCentricMode(robot.drivetrain));
 		driveButtonL3.whenPressed(new ToggleLimitSpeed(robot.drivetrain));
 		
-		//Co Driver Controller
+		// Co Driver Controller
 		// coDriverButtonY.whenPressed(new TeleIntake(robot.intake));
 		// coDriverButtonB.whenPressed(new TeleLowShooter(robot.lowShooter));
 
-		//TEMPORARY BUTTONS ADDED TO DRIVE CONTROLLER FOR TESTING PURPOSES 
-		// driveLTrigger.whenPressed(new TeleIntake(robot.intake));
-		// driveRTrigger.whenPressed(new TeleLowShooter(robot.lowShooter));
+		/**
+		 * TEMPORARY BUTTONS ADDED TO DRIVE CONTROLLER FOR TESTING PURPOSES 
+		 * driveLTrigger.whenPressed(new TeleIntake(robot.intake));
+		 * driveRTrigger.whenPressed(new TeleLowShooter(robot.lowShooter));
+		*/
 	}
 
 

@@ -18,8 +18,8 @@ public class Intake extends Subsystem {
 
 	}
 
-	public void setSpeed(double speed) {
-		intake.set(speed);
+	public void setSpeedIntake(double intakeSpeed) {
+		intake.set(intakeSpeed);
 	}
 
 	

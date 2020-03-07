@@ -19,10 +19,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TeleDrive extends Command {
 	private Drivetrain drivetrain;
-	private XboxController controller = OI.driveController;
+	private XboxController driveController = OI.driveController;
+	private XboxController coDriverController = OI.coDriverController;
 
 	private double fwd;
 	private double strafe;
+	private double ballsRotateCW;
+	private double driveRotateCW;
 	private double rotateCW;
 
 	public TeleDrive(Drivetrain drivetrain) {
@@ -37,11 +40,14 @@ public class TeleDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	
 	protected void execute() {
-		fwd = OI.deadBand(-controller.getY(Hand.kLeft));
-		strafe = OI.deadBand(controller.getX(Hand.kLeft));
-		rotateCW = OI.deadBand(controller.getX(Hand.kRight));
+		fwd = OI.deadBand(-driveController.getY(Hand.kLeft));
+		strafe = OI.deadBand(driveController.getX(Hand.kLeft));
+		//ROTATE SET TO BALLS CONTROLLER FOR TESTING
+		driveRotateCW = OI.deadBand(driveController.getX(Hand.kRight));
+		ballsRotateCW = OI.deadBand(coDriverController.getX(Hand.kRight));
+		rotateCW = ((driveRotateCW + ballsRotateCW)/2);
 
-		drivetrain.drive(fwd, strafe, rotateCW);
+		drivetrain.drive(fwd, strafe, -rotateCW);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -1,11 +1,10 @@
 package frc.robot.command.teleop;
 
-import frc.robot.command.button.ToggleIntake;
 import frc.robot.subsystems.Intake;
 import frc.robot.OI;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,9 +13,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleIntake extends Command {
 
     private Intake intake;
-    private double intakeSpeed;
-    private Joystick controller = OI.coDriverController;
-
+    private double intakeSpeedPos;
+    private double intakeSpeedNeg;
+    /**
+     * if using Logitech f310 controller :
+     * private Joystick controller = OI.coDriverController;
+    */
+    private XboxController controller = OI.coDriverController;
+    
 	public TeleIntake(Intake intake) {
     	this.intake = intake;
     	requires(intake);
@@ -28,9 +32,16 @@ public class TeleIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //intake.setSpeed(ToggleIntake.getIntakeStatus());
-        intakeSpeed = OI.deadBand(-controller.getY(Hand.kLeft));
-        intake.setSpeed(intakeSpeed);
+        /** 
+         * if setting to button:
+         * intake.setSpeed(ToggleIntake.getIntakeStatus());
+         * 
+         * if using Logitech f310 controller:
+         * intakeSpeed = OI.deadBand(-controller.getRawAxis(1));
+         */
+        intakeSpeedPos = OI.deadBand(-controller.getTriggerAxis(Hand.kLeft));
+        intakeSpeedNeg = OI.deadBand(controller.getTriggerAxis(Hand.kRight));
+        intake.setSpeedIntake(intakeSpeedPos + intakeSpeedNeg);
     }
 
     // Make this return true when this Command no longer needs to run execute()

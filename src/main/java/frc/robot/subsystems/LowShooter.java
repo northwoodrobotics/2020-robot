@@ -18,8 +18,8 @@ public class LowShooter extends Subsystem {
 
 	}
 
-	public void setSpeed(double speed) {
-		lowShooter.set(speed);
+	public void setSpeedLowShooter(double lowShooterSpeed) {
+		lowShooter.set(lowShooterSpeed);
 	}
 
 	
